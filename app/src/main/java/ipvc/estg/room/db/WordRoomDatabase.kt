@@ -24,12 +24,24 @@ import kotlinx.coroutines.launch
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.wordDao())
+                    //populateDatabase(database.wordDao())
+                    var wordDao = database.wordDao()
+                    // Delete all content here.
+                    wordDao.deleteAll()
+
+                    // Add sample words.
+                    var word = Word(1,"Hello")
+                    wordDao.insert(word)
+                    word = Word(2,"World!")
+                    wordDao.insert(word)
+
+                    // TODO: Add your own words!
+
                 }
             }
         }
 
-        suspend fun populateDatabase(wordDao: WordDao) {
+        /*suspend fun populateDatabase(wordDao: WordDao) {
             // Delete all content here.
             wordDao.deleteAll()
 
@@ -40,7 +52,7 @@ import kotlinx.coroutines.launch
             wordDao.insert(word)
 
             // TODO: Add your own words!
-        }
+        }*/
     }
 
 
